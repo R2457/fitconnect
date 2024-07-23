@@ -1,0 +1,17 @@
+<mat-toolbar>
+    <a mat-icon-button href="/">
+        <mat-icon>fitness_center</mat-icon>
+    </a>
+    <a href="/" class="product-title"><span>{{productTitle[0]}}</span>{{productTitle[1]}}</a>
+    <span class="spacer"></span>
+    <ng-container *ngIf="isLoggedIn;">
+        <span>{{userName}}</span>
+
+
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCpY5LtQ47cqncKMYWucFP41NtJvXU06-tnQ&usqp=CAU" class="avatar" mat-button [matMenuTriggerFor]="beforeMenu" />
+        <mat-menu #beforeMenu="matMenu" xPosition="before">
+            <a mat-menu-item tabindex="0">Sign Out</a>
+
+        </mat-menu>
+    </ng-container>
+</mat-toolbar>

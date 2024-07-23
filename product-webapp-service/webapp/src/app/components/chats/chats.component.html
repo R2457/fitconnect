@@ -1,0 +1,54 @@
+<div class="chat-container">
+    <div class="chat-list">
+        <h2 class="chat-list-title">Chat Section</h2>
+        <div class="chat-card" *ngFor="let chat of chatList" (click)="selectChat(chat)"
+            [class.selected]="chat === selectedChat">
+            <img class="chat-avatar" mat-list-avatar [src]="chat.chatUserImage" alt="User Image">
+            <h3 mat-line> {{
+                chat.chatUserEmail }}</h3>
+        </div>
+
+    </div>
+
+    <div class="chat-messages">
+        <div class="chat-window" *ngIf="selectedChat">
+            <div class="chat-window-header">
+                <img class="chat-avatar" mat-list-avatar [src]="selectedChat.chatUserImage" alt="User Image">
+                <div class="header-info">
+                    <h3 mat-line class="user-name">{{ selectedChat.chatUserEmail }}</h3>
+                    <span class="user-status">Online</span>
+                </div>
+            </div>
+
+
+            <div class="chat-window-body">
+                <div class="message-item" *ngFor="let message of messages"
+                    [class.admin-message]="message.senderEmail === 'admin@example.com'">
+                    <p class="message" [class.admin-message-text]="message.senderEmail === 'admin@example.com'">
+                        {{ message.senderMessage }}
+                    </p>
+                    <p class="timestamp">{{ message.timeStamp | date: 'MMM d, y, h:mm a' }}</p>
+                </div>
+            </div>
+
+            <div class="chat-window-footer">
+                <form (ngSubmit)="sendMessage()" #chatForm="ngForm">
+                    <label for="attachmentInput" class="attachment-icon">
+                        <mat-icon>attach_file</mat-icon>
+                    </label>
+                    <input class="attachment-file" type="file" id="attachmentInput" name="attachment"
+                        accept="image/*, .pdf" (change)="onAttachmentSelect($event)" />
+
+                    <input class="message-input" matInput [(ngModel)]="newMessage" name="message"
+                        placeholder="Type a message" required autocomplete="off" />
+
+                    <button class="message-submit" type="submit" mat-icon-button 
+                        [disabled]="!chatForm.form.valid">
+                        <mat-icon>send</mat-icon>
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

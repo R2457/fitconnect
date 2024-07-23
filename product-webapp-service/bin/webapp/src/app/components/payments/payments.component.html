@@ -1,0 +1,35 @@
+<div class="payments-container">
+    <div class="payment-list">
+        <h2 class="payment-list-title">Payment List</h2>
+        <div class="payment-card" *ngFor="let payment of paymentList" (click)="selectPayment(payment)" [class.selected]="payment === selectedPayment">
+            <div class="payment-card-title">{{ payment.paymentTitle }}</div>
+            <div class="payment-card-footer">
+                <p><strong>Amount:</strong> {{ payment.amount | currency }}</p>
+                <p
+                    [ngClass]="{'status-red': payment.paymentStatus === 'Fail', 'status-green': payment.paymentStatus === 'Success'}">
+                    <strong>Status:</strong> {{ payment.paymentStatus }}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="payment-details" *ngIf="selectedPayment">
+        <div class="payment-details-card" *ngIf="selectedPayment">
+            <h2 class="payment-title">Payment Details</h2>
+            <div class="payment-content">
+                <p><strong>Title:</strong> {{ selectedPayment.paymentTitle }}</p>
+                <p><strong>User Email:</strong> {{ selectedPayment.userEmail }}</p>
+                <p><strong>Amount:</strong> {{ selectedPayment.amount | currency }}</p>
+                <p [ngClass]="{
+                    'status-red': selectedPayment.paymentStatus === 'Fail',
+                    'status-green': selectedPayment.paymentStatus === 'Success'
+                }">
+                    <strong>Status:</strong> {{ selectedPayment.paymentStatus }}
+                </p>
+                <p><strong>Mode:</strong> {{ selectedPayment.paymentMode }}</p>
+                <p><strong>Timestamp:</strong> {{ selectedPayment.timestamp | date: 'dd MMM, yyyy, hh:mm a' }}</p>
+            </div>
+        </div>
+        
+    </div>
+</div>

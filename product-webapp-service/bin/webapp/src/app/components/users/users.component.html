@@ -1,0 +1,46 @@
+<div class="users-container">
+    <div class="user-list">
+        <h2 class="user-list-title">User List</h2>
+        <div class="user-card" *ngFor="let user of userList" (click)="selectUser(user)"
+            [class.selected]="user === selectedUser">
+            <div class="user-card-title">{{ user.userName }}</div>
+            <div class="user-card-footer">
+                <p><strong>Email:</strong> {{ user.userEmail }}</p>
+                <p [class.subscribed]="user.planName" [class.unsubscribed]="!user.planName">
+                    <strong>{{ user.planName ? 'Subscribed' : 'Not Subscribed' }}</strong>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="user-details">
+        <h2>User Details</h2>
+        <div class="user-details-card" *ngIf="selectedUser">
+            <div class="user-details-header">
+                <div class="profile-pic-container">
+                    <img class="profile-pic" [src]="selectedUser.userProfilePicUrl" alt="Profile Picture" />
+                </div>
+                <h2 class="user-name">{{ selectedUser.userName }}</h2>
+            </div>
+            <div class="user-details-content">
+                <p class="user-email"><strong>Email:</strong> {{ selectedUser.userEmail }}</p>
+                <p class="user-age"><strong>Age:</strong> {{ selectedUser.userAge }}</p>
+                <p class="user-mobile"><strong>Mobile:</strong> {{ selectedUser.userMobile }}</p>
+                <p class="user-height"><strong>Height:</strong> {{ selectedUser.userHeight }}</p>
+                <p class="user-weight"><strong>Weight:</strong> {{ selectedUser.userWeight }}</p>
+                <p *ngIf="!selectedUser.planName"><strong class="unsubscribed">Not a Member</strong></p>
+                <p *ngIf="selectedUser.planName"><strong>Plan Name:</strong> <span
+                        class="plan-name user-plan">{{
+                         selectedUser.planName }}</span></p>
+                <p *ngIf="selectedUser.planName"><strong>Plan Price:</strong> <span
+                        class="plan-price user-plan">{{
+                         selectedUser.planPrice | currency }}</span></p>
+                <p *ngIf="selectedUser.planName"><strong>Plan Duration:</strong> <span class="user-plan">{{ selectedUser.planDuration }}</span>
+                    </p>
+                <p class="user-expiration"  *ngIf="selectedUser.planName"><strong>Expiration Date:</strong> <span class="expiration-date unsubscribed">{{ selectedUser.expirationDate | date: 'MMM dd, yyyy' }}</span></p>
+            </div>
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,6 @@
+.product-body {
+    margin: 10px;
+    border-radius: 20px;
+    border: 1px solid var(--white-light-color);
+    min-height: calc(100vh - 100px);
+}

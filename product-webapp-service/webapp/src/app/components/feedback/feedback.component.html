@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        /* Styling for the block container */
+        .data-block {
+            width: 900px;
+            padding: 20px;
+            border: 3px solid rgb(221, 105, 76);
+            border-radius: 20px;
+            background-color: #f7dede;
+            margin: 20px auto;
+            text-align: left;
+        }
+
+        /* Styling for the individual data elements */
+        .data-element {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .rating {
+            display: inline-block;
+        }
+
+        .rating input {
+            display: none;
+        }
+
+        .rating label {
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        .rating label:before {
+            content: '★';
+            margin-right: 5px;
+        }
+
+        .rating input:checked ~ label:before {
+            color: orange;
+        }
+    </style>
+</head>
+<body>
+    <div class="data-block">
+        <h1>Customer Feedback Form</h1>
+        <form id="feedbackForm">
+            <div class="data-element">
+                <label for="fullName" class="form-label">Name<span style="color: red;">*</span></label>
+                <input type="text" class="form-control" id="fullName" placeholder="Enter Your Name" required>
+            </div>
+
+            <div class="data-element">
+                <label for="subscription" class="form-label">Plan</label>
+                <select class="form-select" id="subscription" required>
+                    <option value="" disabled selected>Select Plan</option>
+                    <option value="Starter">Starter (30 Days)</option>
+                    <option value="Pro">Pro (185 Days)</option>
+                    <option value="Premium">Premium (365 Days)</option>
+                </select>
+            </div>
+
+            <div class="data-element">
+                <label for="enjoyment" class="form-label">What did you enjoy most of the training?</label>
+                <textarea class="form-control" id="enjoyment" placeholder="Type here..." required></textarea>
+            </div>
+
+            <div class="rating">
+                <input type="radio" name="rating" id="star5" value="5">
+                <label for="star5"></label>
+                <input type="radio" name="rating" id="star4" value="4">
+                <label for="star4"></label>
+                <input type="radio" name="rating" id="star3" value="3">
+                <label for="star3"></label>
+                <input type="radio" name="rating" id="star2" value="2">
+                <label for="star2"></label>
+                <input type="radio" name="rating" id="star1" value="1">
+                <label for="star1"></label>
+            </div>
+
+            <p>Your rating: <span id="selectedRating">0</span></p>
+
+            <div class="data-element">
+                <label for="comments" class="form-label">Any additional comments you wish to share?</label>
+                <textarea class="form-control" id="comments" placeholder="Type here..." required></textarea>
+            </div>
+
+            <button type="button" class="btn btn-primary" onclick="submitForm()">Submit Feedback</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap Modal for Success Message -->
+    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Success</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>The data has been submitted successfully.</p>
+                    <h3>Submitted Data:</h3>
+                    <pre id="submittedData"></pre>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const ratingInputs = document.querySelectorAll('input[name="rating"]');
+        const selectedRating = document.getElementById('selectedRating');
+        const feedbackForm = document.getElementById('feedbackForm');
+        const successModal = $('#successModal');
+        const submittedData = document.getElementById('submittedData');
+        const data = [];
+
+        ratingInputs.forEach(input => {
+            input.addEventListener('change', () => {
+                selectedRating.textContent = input.value;
+            });
+        });
+
+        function submitForm() {
+            const fullName = document.getElementById('fullName').value;
+            const subscription = document.getElementById('subscription').value;
+            const enjoyment = document.getElementById('enjoyment').value;
+            const rating = selectedRating.textContent;
+            const comments = document.getElementById('comments').value;
+
+            const feedback = {
+                fullName,
+                subscription,
+                enjoyment,
+                rating,
+                comments,
+            };
+
+            data.push(feedback);
+
+            // Display success message in the Bootstrap modal
+            submittedData.textContent = JSON.stringify(data, null, 2);
+            successModal.modal('show');
+
+            // Clear form fields
+            feedbackForm.reset();
+        }
+    </script>
+</body>
+</html>

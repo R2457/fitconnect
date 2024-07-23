@@ -1,0 +1,97 @@
+<div class="home-container">
+  <div class="card">
+    <h2>Gym Info</h2>
+    <form *ngIf="gymUpdate" (submit)="updateGymInfo()">
+      <p><label for="gymName">Name:</label>
+        <input type="text" id="gymName" name="gymName" [(ngModel)]="gymInfo.gymName" disabled>
+      </p>
+      <p><label for="gymAddress">Address:</label>
+        <input type="text" id="gymAddress" name="gymAddress" [(ngModel)]="gymInfo.gymAddress" required>
+      </p>
+      <p><label for="gymMobileNo">Mobile No:</label>
+        <input type="text" id="gymMobileNo" name="gymMobileNo" [(ngModel)]="gymInfo.mobile" required>
+      </p>
+      <button mat-raised-button color="primary" type="submit">Save</button>
+    </form>
+    <div *ngIf="!gymUpdate">
+      <p><strong>Name:</strong> {{ gymInfo.gymName }}</p>
+      <p><strong>Address:</strong> {{ gymInfo.gymAddress }}</p>
+      <p><strong>Mobile No:</strong> {{ gymInfo.mobile }}</p>
+      <button mat-raised-button color="warn" (click)="gymUpdate = true">Edit Gym Info<mat-icon>edit</mat-icon></button>
+    </div>
+  </div>
+  
+  <div class="card">
+    <h2>Admin Info</h2>
+    <form *ngIf="adminUpdate" (submit)="updateAdminInfo()">
+      <p><label for="adminName">Name:</label>
+        <input type="text" id="adminName" name="adminName" [(ngModel)]="adminInfo.userName" required>
+      </p>
+      <p><label for="adminEmail">Email:</label>
+        <input type="email" id="adminEmail" name="adminEmail" [(ngModel)]="adminInfo.userEmail" disabled>
+      </p>
+      <button mat-raised-button color="primary" type="submit">Save</button>
+    </form>
+    <div *ngIf="!adminUpdate">
+      <p><strong>Name:</strong> {{ adminInfo.userName }}</p>
+      <p><strong>Email:</strong> {{ adminInfo.userEmail }}</p>
+      <button mat-raised-button color="warn" (click)="adminUpdate = true">Edit Details<mat-icon>edit</mat-icon></button>
+    </div>
+  </div>
+  
+
+  <div class="card">
+    <h2>Slots Info</h2>
+    <p>Maximum of 6 slots can available per day</p>
+    <p>Slot 1: From 06:00am to 08:00am</p>
+    <p>Slot 2: From 08:30am to 10:30am</p>
+    <p>Slot 3: From 11:00am to 01:00pm</p>
+    <p>Slot 4: From 04:00pm to 06:00pm</p>
+    <p>Slot 5: From 06:30pm to 08:30pm</p>
+    <p>Slot 6: From 09:00pm to 11:00pm</p>
+  </div>
+
+  <div class="card">
+    <h2>Equipment Info</h2>
+    <p>We offer a variety of fitness equipment, including:</p>
+
+    <ul>
+      <li>Treadmills</li>
+      <li>Ellipticals</li>
+      <li>Stationary Bikes</li>
+      <li>Weights</li>
+      <li>Yoga Mats</li>
+      <li>Resistance Bands</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Users Info</h2>
+    <p> Total no. of users registered : 272</p>
+    <p> No.of users bought Plan 1: 67</p>
+    <p> No.of users bought Plan 2: 85</p>
+    <p> No.of users bought Plan 3: 41</p>
+    <p> No.of users didn't buy a plan: 79</p>
+  </div>
+
+  <div class="card">
+    <h2>Gallery Info</h2>
+    <p>Total number of gym images : 56</p>
+    <p>Total number of gym videos : 12</p>
+    <p>Total number of gym podcasts : 20</p>
+
+  </div>
+
+  <div class="card">
+    <h2>Plans Info</h2>
+    <p>Total available plans : 3</p>
+    <ul>
+      <li>Plan 1 @ Rs.999 / 1 month</li>
+      <li>Plan 2 @ Rs.2799 / 3 months</li>
+      <li>Plan 3 @ Rs.5299 / 6 months</li>
+
+    </ul>
+  </div>
+
+
+</div>

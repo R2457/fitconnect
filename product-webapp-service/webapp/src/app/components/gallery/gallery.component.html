@@ -1,0 +1,44 @@
+<div class="gallery-container">
+    <div class="add-media-card" *ngIf="!formMode">
+        <div class="add-media-btn" (click)="addMediaFileForm()">
+            <span>+ Add a Media File</span>
+        </div>
+    </div>
+    <div class="add-media-card" *ngIf="formMode">
+        
+        <form class="media-form" (submit)="updateMode ? updateMediaFile() :createMediaFile()">
+            <h2>Add MediaFile<span class="close-form" (click)="closeForm()"><mat-icon>close</mat-icon></span></h2>
+            <mat-form-field>
+                <mat-label for="name">Name</mat-label>
+                <input matInput type="text" id="name" name="name" required [(ngModel)]="newMediaName">
+            </mat-form-field>
+
+            <div class="mat-form-field">
+                <mat-label for="mediaImage">Upload Image</mat-label>
+                <input type="file" id="mediaImage" name="mediaImage" accept="image/*" (change)="onImageSelect($event)">
+            </div>
+
+            <mat-form-field>
+                <mat-label for="mediaCategory">Category</mat-label>
+                <input matInput type="text" id="mediaCategory" name="mediaCategory" required
+                    [(ngModel)]="newMediaCategory">
+            </mat-form-field>
+
+            <button mat-raised-button type="submit">{{ updateMode ? 'Update Media' : 'Create Media' }}</button>
+        </form>
+    </div>
+    <div class="media-files">
+        <div class="media-file" *ngFor="let mediaFile of mediaFiles">
+            <div class="media-card" (mouseover)="showDetails(mediaFile)" (mouseout)="hideDetails()">
+                <img [src]="mediaFile.mediaUrl" alt="{{ mediaFile.mediaName }}" class="media-image" />
+                <div class="media-details">
+                    <p>Name: {{ mediaFile.mediaName }}</p>
+                    <p>Category: {{ mediaFile.mediaCategory }}</p>
+                    <button mat-raised-button color="primary" (click)="updateMediaFileForm(mediaFile)">Update</button>
+                    <button mat-raised-button color="warn" (click)="deleteMediaFile(mediaFile.mediaId)">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

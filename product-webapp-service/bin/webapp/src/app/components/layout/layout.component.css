@@ -1,0 +1,19 @@
+.layout-container {
+  display: flex;
+}
+
+.app-sidebar {
+  width: 30vw;
+  max-width: 300px;
+
+  height: calc(100vh - 100px);
+  flex-direction: column;
+
+  border: 1px solid var(--white-light-color);
+}
+
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  height: calc(100vh - 100px);
+}

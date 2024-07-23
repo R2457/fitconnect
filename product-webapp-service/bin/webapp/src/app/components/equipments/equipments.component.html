@@ -1,0 +1,74 @@
+<div class="equipments-container">
+    <div class="equipment-list">
+        <h2 class="equipment-list-title">Equipment List</h2>
+        <div class="equipment-card" *ngFor="let equipment of equipmentList" (click)="selectEquipment(equipment)"
+            [class.selected]="equipment === selectedEquipment">
+            <div class="equipment-card-title">{{ equipment.equipmentName }}</div>
+            <div class="equipment-card-footer">
+                <p><strong>Desc:</strong> {{ equipment.equipmentDescription }}</p>
+                <p [class.status-green]="isEquipmentAvailable(equipment)"
+                    [class.status-red]="!isEquipmentAvailable(equipment)">
+                    <strong>{{ isEquipmentAvailable(equipment) ? 'AVAILABLE' : 'NOT AVAILABLE' }}</strong>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="equipment-details" *ngIf="!formMode">
+
+        <button mat-raised-button color="warn" (click)="addEquipmentForm()" class="full-width-button">
+            <span class="large-bold-text">+ ADD A NEW EQUIPMENT</span>
+        </button>
+
+        <div class="equipment-details-card" *ngIf="selectedEquipment && !formMode">
+            <h2>Equipment Details</h2>
+            <div class="equipment-image">
+                <img [src]="selectedEquipment.equipmentImage" alt="{{ selectedEquipment.equipmentName }}">
+            </div>
+            <p><strong>Name:</strong> {{ selectedEquipment.equipmentName }}</p>
+
+            <p><strong>Description:</strong> {{ selectedEquipment.equipmentDescription }}</p>
+            <p><strong>Quantity:</strong> {{ selectedEquipment.quantity }}</p>
+
+            <div class="equipment-card-actions">
+                <button mat-raised-button color="primary"
+                    (click)="updateEquipmentForm(selectedEquipment)">Update</button>
+
+                <button mat-raised-button color="warn"
+                    (click)="deleteEquipment(selectedEquipment.equipmentId)">Delete</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="equipment-details" *ngIf="formMode">
+        <span class="close-form" (click)="closeForm()"><mat-icon>close</mat-icon></span>
+        <h2>{{ updateMode ? 'Update Equipment' : 'Add Equipment' }}</h2>
+        <form class="equipment-form" (submit)="updateMode ? updateEquipment() : createEquipment()">
+            <mat-form-field>
+                <mat-label for="name">Name</mat-label>
+                <input matInput type="text" id="name" name="name" required [(ngModel)]="newEquipmentName">
+            </mat-form-field>
+
+            <div class="mat-form-field">
+                <mat-label for="equipmentImage">Upload Image</mat-label>
+                <input type="file" id="equipmentImage" name="equipmentImage" accept="image/*"
+                    (change)="onImageSelect($event)">
+            </div>
+
+            <mat-form-field>
+                <mat-label for="quantity">Quantity</mat-label>
+                <input matInput type="number" id="quantity" name="quantity" required [(ngModel)]="newQuantity">
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label for="equipmentDescription">Description</mat-label>
+                <textarea matInput type="text" id="equipmentDescription" name="equipmentDescription" required
+                    [(ngModel)]="newEquipmentDescription"></textarea>
+            </mat-form-field>
+
+            <button mat-raised-button type="submit">{{ updateMode ? 'Update Equipment' : 'Create Equipment' }}</button>
+        </form>
+    </div>
+</div>

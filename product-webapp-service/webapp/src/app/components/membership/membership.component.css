@@ -1,0 +1,44 @@
+.container {
+    margin-left: 50px;
+}
+h1, h2 {
+    text-align: center;
+    margin-top: 35px;
+}
+
+
+.plans {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    align-content: space-between;
+    margin-top: 30px;
+}
+
+.plan1, .plan2, .plan3 {
+    border: 1px solid black;
+    height: 100%;
+    width: 27%;
+    padding: 5px;
+    margin-right: 20px;
+}
+
+.body1, .body2, .body3 {
+    margin-top: 50px;
+}
+
+p {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.price {
+    font-size: 36px;
+    font-weight: bolder;
+    margin: auto 15%;
+}
+
+li {
+    margin-bottom: 10px;
+}

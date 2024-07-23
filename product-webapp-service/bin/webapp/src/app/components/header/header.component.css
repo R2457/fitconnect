@@ -1,0 +1,33 @@
+.spacer {
+    flex: 1 1 auto;
+}
+
+.avatar-container {
+    display: flex;
+    align-items: center;
+}
+
+.avatar {
+    height: 44px;
+    width: 44px;
+    border-radius: 50%;
+    border: 4px solid var(--white-color);
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.mat-toolbar {
+    background-color: var(--black-color);
+    color: var(--white-color);
+    height: var(--header-height);
+}
+
+.product-title {
+    text-decoration: none;
+    color: var(--red-color);
+    font-size: 1.7rem;
+}
+
+.product-title>span {
+    color: var(--white-color);
+}

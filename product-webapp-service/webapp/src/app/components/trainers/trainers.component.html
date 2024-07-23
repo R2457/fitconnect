@@ -1,0 +1,77 @@
+<div class="trainers-container">
+    <div class="trainer-list">
+        <h2 class="trainer-list-title">Trainer List</h2>
+        <div class="trainer-card" *ngFor="let trainer of trainerList" (click)="selectTrainer(trainer)"
+            [class.selected]="trainer === selectedTrainer">
+            <div class="trainer-card-title"> {{ trainer.trainerName }}
+            </div>
+            <div class="trainer-card-footer">
+                <p><strong>Bio:</strong> {{ trainer.trainerBio }}</p>
+                <p class="category">
+                    <strong>{{ trainer.trainerCategory }}</strong>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="trainer-details" *ngIf="!formMode">
+        <button mat-raised-button color="warn" (click)="addTrainerForm()" class="full-width-button">
+            <span class="large-bold-text">+ ADD A NEW TRAINER</span>
+        </button>
+
+        <div class="trainer-details-card" *ngIf="selectedTrainer && !formMode">
+            <h2>Trainer Details</h2>
+            <div class="trainer-image">
+                <img [src]="selectedTrainer.trainerImage" alt="{{ selectedTrainer.trainerName }}">
+            </div>
+            <p><strong>Name </strong>{{ selectedTrainer.trainerName }}</p>
+
+            <p><strong>Category </strong>{{ selectedTrainer.trainerCategory }}</p>
+            <p><strong>Bio </strong> {{ selectedTrainer.trainerBio }}</p>
+
+            <div class="trainer-card-actions">
+                <button mat-raised-button color="primary" (click)="updateTrainerForm(selectedTrainer)">Update</button>
+                <button mat-raised-button color="warn"
+                    (click)="deleteTrainer(selectedTrainer.trainerId)">Delete</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="trainer-details" *ngIf="formMode">
+        <span class="close-form" (click)="closeForm()" ><mat-icon>close</mat-icon></span>
+        <h2>Add Trainer</h2>
+        <form class="trainer-form" (submit)="updateMode ? updateTrainer() : createTrainer()">
+            <mat-form-field>
+                <mat-label for="name">Name</mat-label>
+                <input matInput type="text" id="name" name="name" required [(ngModel)]="newTrainerName">
+            </mat-form-field>
+
+            <div class="mat-form-field">
+                <mat-label for="trainerImage">Upload Image</mat-label>
+                <input type="file" id="trainerImage" name="trainerImage" accept="image/*"
+                    (change)="onImageSelect($event)">
+            </div>
+
+
+            <mat-form-field>
+                <mat-label for="trainerCategory">Category</mat-label>
+                <mat-select id="trainerCategory" name="trainerCategory" required [(ngModel)]="newTrainerCategory">
+                    <mat-option *ngFor="let category of categoryList" [value]="category">
+                        {{ category }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label for="trainerBio">Bio</mat-label>
+                <input matInput type="text" id="trainerBio" name="trainerBio" required [(ngModel)]="newTrainerBio">
+            </mat-form-field>
+
+            <button mat-raised-button type="submit">{{ updateMode ? 'Update Trainer' : 'Create Trainer' }}</button>
+        </form>
+    </div>
+
+
+</div>

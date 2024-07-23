@@ -1,0 +1,85 @@
+<div class="slots-container">
+    <div class="slot-list">
+        <h2 class="slot-list-title">Slot List</h2>
+        <div class="slot-card" *ngFor="let slot of slotList" (click)="selectSlot(slot)"
+            [class.selected]="slot === selectedSlot">
+            <div class="slot-card-title">{{ slot.startTime }} - {{ slot.endTime }}
+            </div>
+            <div class="slot-card-footer">
+                <p><strong>Date:</strong> {{ slot.slotDate | date: 'dd MMM, yyyy' }}</p>
+                <p [class.status-green]="isSlotActive(slot)" [class.status-red]="!isSlotActive(slot)"><strong>{{
+                        isSlotActive(slot) ? 'ACTIVE' : 'EXPIRED' }}</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="slot-details" *ngIf="!formMode">
+        <button mat-raised-button color="warn" (click)="addSlotForm()" class="full-width-button">
+            <span class="large-bold-text">+ ADD A NEW SLOT</span>
+        </button>
+
+        <div class="slot-details-card" *ngIf="selectedSlot && !formMode">
+            <h2 class="slot-title">Slot Details</h2>
+            <div class="slot-content">
+                <p><strong>Start Time:</strong> {{ selectedSlot.startTime }}</p>
+                <p><strong>End Time:</strong> {{ selectedSlot.endTime }}</p>
+                <p><strong>Maximum Limit:</strong> {{ selectedSlot.maximumLimit }}</p>
+                <p><strong>Slot Date:</strong> {{ selectedSlot.slotDate | date: 'yyyy-MM-dd' }}</p>
+                <p><strong>Trainers:</strong></p>
+                <div class="trainers-container">
+                    <div class="trainer-card" *ngFor="let trainer of selectedSlot.trainerList">
+                        <div class="trainer-image">
+                            <img [src]="getTrainerImage(trainer)" [alt]="getTrainerName(trainer)">
+                        </div>
+                        <div class="trainer-name">
+                            {{ getTrainerName(trainer) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slot-card-actions">
+                <button mat-raised-button color="primary" (click)="updateSlotForm(selectedSlot)">Update</button>
+                <button mat-raised-button color="warn" (click)="deleteSlot(selectedSlot.slotId)">Delete</button>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="slot-details" *ngIf="formMode">
+        <span class="close-form" (click)="closeForm()"><mat-icon>close</mat-icon></span>
+        <h2>{{ updateMode ? 'Update Slot' : 'Add Slot' }}
+
+        </h2>
+        <form class="slot-form" (submit)="updateMode ? updateSlot() : createSlot()">
+            <mat-form-field>
+                <mat-label for="date">Date</mat-label>
+                <input matInput type="date" id="date" name="date" required min="{{ minDate | date: 'yyyy-MM-dd' }}"
+                    max="{{ maxDate | date: 'yyyy-MM-dd' }}" [(ngModel)]="newSlotDate">
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label for="timePeriod">Time Period</mat-label>
+                <mat-select id="timePeriod" name="timePeriod" required [(ngModel)]="newTimePeriod">
+                    <mat-option *ngFor="let time of timingsList" [value]="time">{{ time }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label for="trainers">Trainers</mat-label>
+                <mat-select id="trainers" name="trainers" required multiple [(ngModel)]="selectedTrainers">
+                    <mat-option *ngFor="let trainer of trainersList" [value]="trainer.trainerId">{{ trainer.trainerName
+                        }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label for="maxLimit">Maximum Limit</mat-label>
+                <input matInput type="number" id="maxLimit" name="maxLimit" required [(ngModel)]="newMaxLimit" min="1"
+                    max="49">
+            </mat-form-field>
+
+            <button mat-raised-button type="submit">{{ updateMode ? 'Update Slot' : 'Create Slot' }}</button>
+        </form>
+    </div>
+</div>

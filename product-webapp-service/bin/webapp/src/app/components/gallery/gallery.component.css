@@ -1,0 +1,98 @@
+.gallery-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+}
+
+.add-media-card {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.add-media-card:hover {
+    background-color: #e0e0e0;
+}
+
+.add-media-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #007bff;
+}
+
+.media-files {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.media-card {
+    position: relative;
+    width: 350px;
+    height: 250px;
+    perspective: 1000px;
+    transition: transform 0.5s;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.427);
+}
+
+.media-card:hover {
+    transform: rotateY(10deg) scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.638);
+}
+
+.media-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+}
+
+.media-details {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.811);
+    color: #fff;
+    border-radius: 0 0 10px 10px;
+    text-align: center;
+    transform: translateY(100%);
+    transition: transform 0.3s;
+}
+
+.media-card:hover .media-details {
+    transform: translateY(0);
+}
+
+.media-details p {
+    margin: 0;
+    padding: 5px 0;
+}
+
+.media-details button {
+    margin: 10px 5px 0;
+}
+
+
+.media-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.close-form {
+    margin-left: 180px;
+    color: var(--red-color);
+    transform: scale(1.2);
+    cursor: pointer;
+}
